@@ -1,0 +1,107 @@
+A * X = B
+L * U = A
+L * U * X = B
+L * Z = B
+U * X = Z
+row partitioning
+gaussian elimination
+Is this LU decomposition correct?
+incorrect in check[0] = 5.000000, B[0] = 5.000000
+incorrect in check[1] = 3.000000, B[1] = 3.000000
+incorrect in check[3] = 1.000000, B[3] = 1.000000
+incorrect in check[4] = 1.000000, B[4] = 1.000000
+incorrect in check[5] = 1.000000, B[5] = 1.000000
+incorrect in check[6] = 4.000000, B[6] = 4.000000
+incorrect in check[7] = 5.000000, B[7] = 5.000000
+incorrect in check[8] = 3.000000, B[8] = 3.000000
+incorrect in check[10] = 3.000000, B[10] = 3.000000
+incorrect in check[11] = 4.000000, B[11] = 4.000000
+incorrect in check[12] = 5.000000, B[12] = 5.000000
+incorrect in check[13] = 5.000000, B[13] = 5.000000
+incorrect in check[14] = 4.000000, B[14] = 4.000000
+incorrect in check[15] = 2.000000, B[15] = 2.000000
+incorrect in check[16] = 2.000000, B[16] = 2.000000
+incorrect in check[17] = 1.000000, B[17] = 1.000000
+incorrect in check[18] = 4.000000, B[18] = 4.000000
+incorrect in check[19] = 4.000000, B[19] = 4.000000
+incorrect in check[20] = 4.000000, B[20] = 4.000000
+incorrect in check[21] = 5.000000, B[21] = 5.000000
+incorrect in check[22] = 3.000000, B[22] = 3.000000
+incorrect in check[23] = 5.000000, B[23] = 5.000000
+incorrect in check[24] = 5.000000, B[24] = 5.000000
+incorrect in check[25] = 4.000000, B[25] = 4.000000
+incorrect in check[26] = 2.000000, B[26] = 2.000000
+incorrect in check[27] = 3.000000, B[27] = 3.000000
+incorrect in check[28] = 5.000000, B[28] = 5.000000
+incorrect in check[29] = 1.000000, B[29] = 1.000000
+incorrect in check[30] = 5.000000, B[30] = 5.000000
+incorrect in check[31] = 2.000000, B[31] = 2.000000
+incorrect in check[32] = 3.000000, B[32] = 3.000000
+incorrect in check[33] = 4.000000, B[33] = 4.000000
+incorrect in check[34] = 4.000000, B[34] = 4.000000
+incorrect in check[35] = 4.000000, B[35] = 4.000000
+incorrect in check[36] = 1.000000, B[36] = 1.000000
+incorrect in check[37] = 2.000000, B[37] = 2.000000
+incorrect in check[38] = 5.000000, B[38] = 5.000000
+incorrect in check[39] = 1.000000, B[39] = 1.000000
+incorrect in check[40] = 2.000000, B[40] = 2.000000
+incorrect in check[41] = 2.000000, B[41] = 2.000000
+incorrect in check[42] = 4.000000, B[42] = 4.000000
+incorrect in check[43] = 2.000000, B[43] = 2.000000
+incorrect in check[44] = 4.000000, B[44] = 4.000000
+incorrect in check[45] = 4.000000, B[45] = 4.000000
+incorrect in check[46] = 5.000000, B[46] = 5.000000
+incorrect in check[47] = 2.000000, B[47] = 2.000000
+incorrect in check[48] = 4.000000, B[48] = 4.000000
+incorrect in check[49] = 3.000000, B[49] = 3.000000
+incorrect in check[50] = 1.000000, B[50] = 1.000000
+incorrect in check[51] = 2.000000, B[51] = 2.000000
+incorrect in check[52] = 3.000000, B[52] = 3.000000
+incorrect in check[53] = 5.000000, B[53] = 5.000000
+incorrect in check[54] = 4.000000, B[54] = 4.000000
+incorrect in check[55] = 4.000000, B[55] = 4.000000
+incorrect in check[56] = 3.000000, B[56] = 3.000000
+incorrect in check[57] = 5.000000, B[57] = 5.000000
+incorrect in check[58] = 1.000000, B[58] = 1.000000
+incorrect in check[59] = 4.000000, B[59] = 4.000000
+incorrect in check[60] = 5.000000, B[60] = 5.000000
+incorrect in check[61] = 3.000000, B[61] = 3.000000
+incorrect in check[62] = 2.000000, B[62] = 2.000000
+incorrect in check[63] = 5.000000, B[63] = 5.000000
+incorrect in check[64] = 3.000000, B[64] = 3.000000
+incorrect in check[65] = 5.000000, B[65] = 5.000000
+incorrect in check[66] = 5.000000, B[66] = 5.000000
+incorrect in check[67] = 5.000000, B[67] = 5.000000
+incorrect in check[68] = 3.000000, B[68] = 3.000000
+incorrect in check[69] = 4.000000, B[69] = 4.000000
+incorrect in check[70] = 5.000000, B[70] = 5.000000
+incorrect in check[71] = 5.000000, B[71] = 5.000000
+incorrect in check[72] = 3.000000, B[72] = 3.000000
+incorrect in check[73] = 3.000000, B[73] = 3.000000
+incorrect in check[74] = 3.000000, B[74] = 3.000000
+incorrect in check[75] = 1.000000, B[75] = 1.000000
+incorrect in check[76] = 3.000000, B[76] = 3.000000
+incorrect in check[77] = 4.000000, B[77] = 4.000000
+incorrect in check[78] = 4.000000, B[78] = 4.000000
+incorrect in check[79] = 1.000000, B[79] = 1.000000
+incorrect in check[80] = 1.000000, B[80] = 1.000000
+incorrect in check[81] = 4.000000, B[81] = 4.000000
+incorrect in check[82] = 5.000000, B[82] = 5.000000
+incorrect in check[83] = 5.000000, B[83] = 5.000000
+incorrect in check[84] = 3.000000, B[84] = 3.000000
+incorrect in check[85] = 5.000000, B[85] = 5.000000
+incorrect in check[86] = 3.000000, B[86] = 3.000000
+incorrect in check[87] = 2.000000, B[87] = 2.000000
+incorrect in check[88] = 4.000000, B[88] = 4.000000
+incorrect in check[89] = 1.000000, B[89] = 1.000000
+incorrect in check[90] = 3.000000, B[90] = 3.000000
+incorrect in check[91] = 1.000000, B[91] = 1.000000
+incorrect in check[92] = 5.000000, B[92] = 5.000000
+incorrect in check[93] = 4.000000, B[93] = 4.000000
+incorrect in check[94] = 5.000000, B[94] = 5.000000
+incorrect in check[95] = 4.000000, B[95] = 4.000000
+incorrect in check[96] = 4.000000, B[96] = 4.000000
+incorrect in check[97] = 1.000000, B[97] = 1.000000
+incorrect in check[98] = 3.000000, B[98] = 3.000000
+incorrect in check[99] = 3.000000, B[99] = 3.000000
+operating time = 0.004749
