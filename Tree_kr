@@ -1,0 +1,172 @@
+# 트리
+
+>이 주제는 튜토리얼 화되었습니다 [여기] (https://www.raywenderlich.com/138190/swift-algorithm-club-swift-tree-data-structure)
+
+
+트리는 오브젝트 간의 계층 관계를 나타냅니다. 이것은 트리입니다.
+
+! [트리] (Images / Tree.png)
+
+트리는 노드로 구성되며이 노드는 서로 링크됩니다.
+
+노드에는 자녀와의 연결 고리와 부모 노드가 있습니다. 자식 노드는 주어진 노드 아래의 노드입니다. 부모는 위의 노드입니다. 노드는 항상 하나의 상위 항목 만 가지지 만 여러 개의 하위 항목을 가질 수 있습니다.
+
+! [트리] (Images / ParentChildren.png)
+
+상위가없는 노드는 * 루트 * 노드입니다. 자식이없는 노드는 * 리프 노드입니다.
+
+트리의 포인터는 사이클을 형성하지 않습니다. 이것은 트리가 아닙니다.
+
+! [트리가 아] (Images / Cycles.png)
+
+이러한 구조를 [그래프] (../ 그래프 /)라고합니다. 트리는 실제로 매우 간단한 그래프 형태입니다. (유사한 목록에서, [링크드리스트] (../ Linked % 20List /)는 트리의 단순한 버전입니다. 그것에 대해 생각해보십시오!)
+
+이 기사에서는 범용 트리에 대해 설명합니다. 이것은 각 노드가 가질 수있는 자식의 수 또는 트리의 노드 순서에 대한 제한이없는 트리입니다.
+
+Swift의 기본 구현은 다음과 같습니다.
+
+```swift
+public class TreeNode<T> {
+  public var value: T
+
+  public weak var parent: TreeNode?
+  public var children = [TreeNode<T>]()
+
+  public init(value: T) {
+    self.value = value
+  }
+
+  public func addChild(_ node: TreeNode<T>) {
+    children.append(node)
+    node.parent = self
+  }
+}
+```
+
+이것은 트리의 단일 노드를 설명합니다. 그것은 일반적인 타입`T`의 값을 가지며,`부모` 노드에 대한 참조와 자식 노드의 배열을가집니다.
+
+트리를 인쇄 할 수 있도록`description` 메소드를 추가하는 것이 유용 할 것입니다 :
+
+```swift
+extension TreeNode: CustomStringConvertible {
+  public var description: String {
+    var s = "\(value)"
+    if !children.isEmpty {
+      s += " {" + children.map { $0.description }.joined(separator: ", ") + "}"
+    }
+    return s
+  }
+}
+```
+
+환경에서 이 동작을 보려면 다음 단계를 따르세요.
+
+```swift
+let tree = TreeNode<String>(value: "beverages")
+
+let hotNode = TreeNode<String>(value: "hot")
+let coldNode = TreeNode<String>(value: "cold")
+
+let teaNode = TreeNode<String>(value: "tea")
+let coffeeNode = TreeNode<String>(value: "coffee")
+let chocolateNode = TreeNode<String>(value: "cocoa")
+
+let blackTeaNode = TreeNode<String>(value: "black")
+let greenTeaNode = TreeNode<String>(value: "green")
+let chaiTeaNode = TreeNode<String>(value: "chai")
+
+let sodaNode = TreeNode<String>(value: "soda")
+let milkNode = TreeNode<String>(value: "milk")
+
+let gingerAleNode = TreeNode<String>(value: "ginger ale")
+let bitterLemonNode = TreeNode<String>(value: "bitter lemon")
+
+tree.addChild(hotNode)
+tree.addChild(coldNode)
+
+hotNode.addChild(teaNode)
+hotNode.addChild(coffeeNode)
+hotNode.addChild(chocolateNode)
+
+coldNode.addChild(sodaNode)
+coldNode.addChild(milkNode)
+
+teaNode.addChild(blackTeaNode)
+teaNode.addChild(greenTeaNode)
+teaNode.addChild(chaiTeaNode)
+
+sodaNode.addChild(gingerAleNode)
+sodaNode.addChild(bitterLemonNode)
+```
+
+`tree`의 값을 출력하면 다음과 같이됩니다.
+
+음료 {차가운 {차 {검정, 녹색, 차이}, 커피, 코코아}, 차가운 {생강 에일 리, 쓴 레몬}, 우유}}
+
+이는 다음 구조에 해당합니다.
+![예제 트리](Images/Example.png)
+
+`beverages` 노드는 부모가 없기 때문에 루트입니다. 잎은 자식노드들이 없기 때문에 `black`, `green`, `chai`, `coffee`, `cocoa`, `ginger ale`, `bitter lemon`, `milk`이다.
+
+어느 노드에서나`parent` 속성을보고 루트로 돌아갈 수 있습니다 :
+
+```swift
+teaNode.parent           // this is the "hot" node
+teaNode.parent!.parent   // this is the root
+```
+
+트리에 관해 말할 때 종종 다음 정의를 사용합니다.
+
+- ** 트리의 높이 ** 이것은 루트 노드와 가장 낮은 리프 사이의 링크 수입니다. 우리의 예제에서 트리의 높이는 루트에서 맨 아래로가는 데 3 번 점프가 걸리기 때문에 3입니다.
+
+- ** 노드의 깊이 ** 이 노드와 루트 노드 사이의 링크 수. 예를 들어 'tea'의 깊이는 루트에 도달하기 위해 두 번의 점프가 필요하기 때문에 2입니다. (루트 자체의 깊이는 0입니다.)
+
+트리를 만드는 데는 여러 가지 방법이 있습니다. 예를 들어, 때로는`부모` 속성을 전혀 가질 필요가 없습니다. 또는 각 노드에 최대 두 개의 하위 노드 만 부여하면됩니다. 이러한 트리는 [이진 트리] (../Binary % 20Tree /)라고합니다. 매우 일반적인 유형의 트리는 [이진 검색 트리] (../ Binary % 20Search % 20Tree /) (또는 BST)입니다. 이진 트리는 노드가 특정 방식으로 검색 속도를 높이기 위해 정렬되는보다 엄격한 버전입니다.
+
+여기에 표시된 범용 트리는 계층 적 데이터를 설명하는 데 적합하지만 실제로 애플리케이션에 어떤 유형의 추가 기능이 필요한지에 따라 다릅니다.
+
+다음은`TreeNode` 클래스를 사용하여 트리가 특정 값을 포함하고 있는지 판단 할 수있는 예제입니다. 먼저 노드 자체의 'value'속성을 살펴보십시오. 일치하는 게 없다면 차례대로 모든 아이들을 보게됩니다. 물론, 그 자식들은 또한`TreeNodes`이기 때문에 재귀 적으로 같은 과정을 반복 할 것입니다. 우선 자신의 가치를 먼저 살펴본 다음 자녀를 먼저 봅니다. 그리고 그들의 자식들은 똑같이 진행되고 재귀가 적용됩니다.
+코드는 다음과 같습니다.
+
+```swift
+extension TreeNode where T: Equatable {
+  func search(_ value: T) -> TreeNode? {
+    if value == self.value {
+      return self
+    }
+    for child in children {
+      if let found = child.search(value) {
+        return found
+      }
+    }
+    return nil
+  }
+}
+```
+
+그리고 이것을 사용하는 방법의 예 :
+
+```swift
+tree.search("cocoa")    // "cocoa" 노드 반환
+tree.search("chai")     // "chai" 노드 반환
+tree.search("bubbly")   // null
+```
+
+하나 이상의 배열을 사용하여 트리를 설명하는 것도 가능합니다. 그런 다음 배열의 인덱스가 다른 노드 사이의 링크를 만듭니다. 
+예시:
+
+	0 = beverage		5 = cocoa		9  = green
+	1 = hot			6 = soda		10 = chai
+	2 = cold		7 = milk		11 = ginger ale
+	3 = tea			8 = black		12 = bitter lemon
+	4 = coffee				
+
+그런 다음 다음 배열로 트리를 설명 할 수 있습니다.
+
+[-1, 0, 0, 1, 1, 1, 2, 2, 3, 3, 3, 6, 6]
+
+배열의 각 항목은 상위 노드에 대한 포인터입니다. 인덱스 3의 항목 인`tea`는 부모가`hot` 이기 때문에 값 1을가집니다. 루트 노드는 부모가 없으므로`-1`을 가리 킵니다. 노드에서 뿌리까지만 돌아가는 그런 나무를 횡단 할 수는 있지만 다른 방법은 아닙니다.
+
+그런데 때로는 * forest *라는 용어를 사용하는 알고리즘을 보게됩니다. 아니나 다를까, 그것은 분리 된 트리 객체들의 집합에 주어진 이름이다. 이에 대한 예제는 [union-find] (../ Union-Find /)를 참조하십시오.
+
+* Matthijs Hollemans의 Swift Algorithm Club 작성 *

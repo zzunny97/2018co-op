@@ -1,0 +1,157 @@
+# 너비 우선 탐색
+
+>이 주제는 튜토리얼 화되었습니다 [https://www.raywenderlich.com/155801/swift-algorithm-club-swift-breadth-first-search]
+
+
+너비 우선 탐색 (BFS)은 [tree] (../ Tree /) 또는 [그래프] (../ Graph /) 데이터 구조를 탐색하거나 검색하는 알고리즘입니다. 소스 노드에서 시작하여 인접 레벨 노드로 이동하기 전에 즉각적인 인접 노드를 먼저 탐색합니다.
+
+너비 우선 탐색은 유향 그래프와 무향 그래프 모두에서 사용할 수 있습니다.
+
+## 애니메이션 예제
+
+너비 우선 검색이 그래프에서 작동하는 방법은 다음과 같습니다.
+
+! [너비 우선 탐색의 애니메이션 예제] (Images / AnimatedExample.gif)
+
+우리가 한 노드를 방문하면 우리는 그것을 검은 색으로 표시합니다. 또한 이웃 노드를 [queue] (../ Queue /)에 넣습니다. 애니메이션에서는 대기열에 있지만 아직 방문하지 않은 노드는 회색으로 표시됩니다.
+
+애니메이션 예제를 따르겠습니다. 우리는 소스 노드`A`로 시작하여 그것을 큐에 추가합니다. 애니메이션에서는 노드 A가 회색으로 표시됩니다.
+
+```swift
+queue.enqueue(A)
+```
+
+대기열은 이제`[A]`입니다. 큐에 노드가있는 한 큐의 맨 앞에있는 노드를 방문하고 아직 방문하지 않은 경우 바로 인접 노드를 대기열에 넣습니다.
+
+그래프 횡단을 시작하기 위해 첫 번째 노드를 큐 'A`에서 꺼내 검정으로 표시합니다. 그런 다음 두 개의 이웃 노드 인`B`와`C`를 대기열에 넣습니다. 이 색상은 회색입니다.
+
+```swift
+queue.dequeue()   // A
+queue.enqueue(B)
+queue.enqueue(C)
+```
+
+큐는 이제`[B, C]`입니다. 우리는`B`를 dequeue하고`B`의 이웃 노드 인`D`와`E`를 대기 행렬에 넣습니다.
+
+```swift
+queue.dequeue()   // B
+queue.enqueue(D)
+queue.enqueue(E)
+```
+
+큐는 이제`[C, D, E]`입니다. C를 큐에서 빼내고, C 노드의 인접 노드 인 F와 G를 큐에 넣습니다.
+
+```swift
+queue.dequeue()   // C
+queue.enqueue(F)
+queue.enqueue(G)
+```
+
+큐는 이제`[D, E, F, G]`입니다. 이웃 노드가없는`D`를 큐에서 제거합니다.
+
+```swift
+queue.dequeue()   // D
+```
+
+큐는 이제`[E, F, G]`입니다. `E`를 큐에서 꺼내서 하나의 인접 노드 인`H`를 대기열에 넣습니다. `B`도`E`의 이웃이지만`B`를 이미 방문 했으므로 다시 큐에 추가하지는 않습니다.
+
+```swift
+queue.dequeue()   // E
+queue.enqueue(H)
+```
+
+큐는 이제`[F, G, H]`입니다. 큐되지 않은 인접 노드가없는 'F'를 큐에서 제거합니다.
+
+```swift
+queue.dequeue()   // F
+```
+
+큐는 이제`[G, H]`입니다. 접근하지 않은 이웃 노드가없는`G`를 큐에서 빼내십시오.
+
+```swift
+queue.dequeue()   // G
+```
+
+큐는 이제`[H]`입니다. Dequeue 'H'. 비켜간 이웃 노드가 없습니다.
+
+```swift
+queue.dequeue()   // H
+```
+
+대기열이 비어있어 모든 노드를 탐색했습니다. 노드가 탐색 된 순서는 A, B, C, D, E, F, G, H입니다.
+
+이것을 트리로 볼 수 있습니다.
+
+! [BFS 트리] (Images / TraversalTree.png)
+
+노드의 부모는 그 노드를 "발견"한 노드입니다. 트리의 루트는 너비 우선 검색을 시작한 노드입니다.
+
+가중치가 적용되지 않은 그래프의 경우이 트리는 시작 노드에서 트리의 다른 모든 노드까지의 최단 경로를 정의합니다. 따라서 너비 우선 탐색은 그래프에서 두 노드 사이의 최단 경로를 찾는 한 가지 방법입니다.
+
+## 코드
+
+대기열을 사용하는 너비 우선 검색의 간단한 구현 :
+
+```swift
+func breadthFirstSearch(_ graph: Graph, source: Node) -> [String] {
+  var queue = Queue<Node>()
+  queue.enqueue(source)
+
+  var nodesExplored = [source.label]
+  source.visited = true
+
+  while let node = queue.dequeue() {
+    for edge in node.neighbors {
+      let neighborNode = edge.neighbor
+      if !neighborNode.visited {
+        queue.enqueue(neighborNode)
+        neighborNode.visited = true
+        nodesExplored.append(neighborNode.label)
+      }
+    }
+  }
+
+  return nodesExplored
+}
+```
+
+대기열에 노드가있는 동안 첫 번째 노드를 방문한 다음 아직 방문하지 않은 경우 바로 인접 노드를 대기열에 추가합니다.
+
+이 코드를 놀이터에 놓고 다음과 같이 테스트하십시오.
+
+```swift
+let graph = Graph()
+
+let nodeA = graph.addNode("a")
+let nodeB = graph.addNode("b")
+let nodeC = graph.addNode("c")
+let nodeD = graph.addNode("d")
+let nodeE = graph.addNode("e")
+let nodeF = graph.addNode("f")
+let nodeG = graph.addNode("g")
+let nodeH = graph.addNode("h")
+
+graph.addEdge(nodeA, neighbor: nodeB)
+graph.addEdge(nodeA, neighbor: nodeC)
+graph.addEdge(nodeB, neighbor: nodeD)
+graph.addEdge(nodeB, neighbor: nodeE)
+graph.addEdge(nodeC, neighbor: nodeF)
+graph.addEdge(nodeC, neighbor: nodeG)
+graph.addEdge(nodeE, neighbor: nodeH)
+graph.addEdge(nodeE, neighbor: nodeF)
+graph.addEdge(nodeF, neighbor: nodeG)
+
+let nodesExplored = breadthFirstSearch(graph, source: nodeA)
+print(nodesExplored)
+```
+
+결과 : `[ "a", "b", "c", "d", "e", "f", "g", "h"]`
+   
+# BFS는 무엇에 좋은가?
+
+너비 우선 검색은 많은 문제를 해결하는 데 사용될 수 있습니다. 작은 선택 :
+
+* 소스 노드와 각 다른 노드 사이의 [최단 경로] (../ 최단 % 20 경로 % 20 (비중 중) /)를 계산합니다 (가중치가없는 그래프에만 해당).
+* 가중치가 적용되지 않은 그래프에서 [최소 스패닝 트리] 계산 (../ 최소 % 20Spanning % 20Tree % 20 (비중)) /.
+
+* [Chris Pilcher] 글
